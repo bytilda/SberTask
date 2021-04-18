@@ -1,3 +1,6 @@
+import java.util.Date;
+import java.util.HashMap;
+
 public class CustomerView extends View<Customer>{
 
     CustomerView(Controller<Customer> controller) {
@@ -15,9 +18,48 @@ public class CustomerView extends View<Customer>{
         int subOption  = Integer.parseInt(scanner.nextLine());
         switch (subOption) {
             case 1 -> {
-
+                HashMap<Integer, Customer> customers = controller.findAll();
+                for (Customer customer: customers.values()) {
+                    System.out.println("ID: " + customer.getID());
+                    System.out.println("Имя: " + customer.getFirstName());
+                    System.out.println("Фамилия: " + customer.getLastName());
+                    System.out.println("Отчество: " + customer.getPatronymic());
+                    System.out.println("E-mail: " + customer.getEmail());
+                    System.out.println("Номер телефона: " + customer.getPhoneNumber());
+                    System.out.println("Дата рождения: " + formatDate(customer.getDateOfBirth()));
+                    System.out.println();
+                }
             }
+
             case 4->{
+                Customer customer = new Customer();
+                System.out.println("Введите имя:");
+                customer.setFirstName(scanner.nextLine());
+
+                System.out.println("Введите фамилию:");
+                customer.setLastName(scanner.nextLine());
+
+                System.out.println("Введите отчество при наличии, иначе Enter:");
+                customer.setPatronymic(scanner.nextLine());
+
+                System.out.println("Введите номер при наличии, иначе Enter:");
+                customer.setPhoneNumber(scanner.nextLine());
+
+                System.out.println("Введите email: ");
+                customer.setEmail(scanner.nextLine());
+
+                System.out.println("Введите дату рождения: ");
+                Date date = readDate();
+                if(date != null)
+                    customer.setDateOfBirth(date);
+                else{
+                    System.out.println("Дата была введена неверно");
+                    break;
+                }
+                if(controller.add(customer))
+                    System.out.println("Добавление прошло успешно");
+                else
+                    System.out.println("Не удалось добавить");
 
             }
         }

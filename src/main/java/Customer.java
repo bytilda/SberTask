@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -8,7 +9,7 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String patronymic;
-    private int age;
+    private Date dateOfBirth;
     private String email;
     private String phoneNumber;
 
@@ -30,9 +31,13 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getAge() { return age; }
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
 
-    public void setAge(int age) { this.age = age; }
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
 
     public Integer getID() {
         return ID;

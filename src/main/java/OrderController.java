@@ -1,5 +1,5 @@
 public class OrderController extends Controller<Order>{
-    OrderController(DAO dao) {
+    OrderController(DAO<Order> dao) {
         super(dao);
     }
 

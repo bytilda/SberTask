@@ -24,8 +24,16 @@ public class OrderView extends View<Order>{
             case 1 -> {
                 HashMap<Integer, Order> orders = controller.findAll();
                 for ( Order order: orders.values()) {
-                    System.out.println("ID заказа: " + order.getID());
-                    System.out.println("Номер заказа" + order.getOrderNumber());
+                    System.out.println("ID: " + order.getID());
+                    System.out.println("Номер: " + order.getOrderNumber());
+                    System.out.println("Дата оформления: " + formatDate(order.getOrderDate()));
+                    System.out.println("Дата начала исполнения: " + formatDate(order.getDateOfStartExecution()));
+                    System.out.println("Дата окончания исполнения: " + formatDate(order.getDateOfEndExecution()));
+                    System.out.println("Описание: " + order.getDescription());
+                    System.out.println("ID покуателя: " + order.getCustomerID());
+                    System.out.println("Имя и фамилия покупателя: " + order.getCustomer().getFirstName() + " " +
+                            order.getCustomer().getLastName());
+                    System.out.println();
                 }
 
             }

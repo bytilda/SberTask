@@ -24,4 +24,9 @@ public abstract class View<T> {
         }
         return date;
     }
+
+    protected String formatDate(Date date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(date);
+    }
 }

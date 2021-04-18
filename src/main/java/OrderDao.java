@@ -22,9 +22,14 @@ public class OrderDao extends  DAO<Order>{
                 order.setID(resultSet.getInt("idorder"));
                 order.setCustomerID(resultSet.getInt("idcustomer"));
                 order.setOrderDate(resultSet.getDate("orderDate"));
+
+                //если коллекция покупателей не была заполнена
+                if(customerDao.getHashMap() == null) customerDao.findAll();
                 order.setCustomer(customerDao.getHashMap().get(resultSet.getInt("idcustomer")));
+
                 orders.put(order.getID(), order);
             }
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
