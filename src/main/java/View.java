@@ -13,6 +13,7 @@ public abstract class View<T> {
 
     public abstract void mainDialog();
 
+    //считывает дату из коммандной строки
     protected Date readDate(){
         Date date = null;
         String sdate = scanner.nextLine();
@@ -25,8 +26,12 @@ public abstract class View<T> {
         return date;
     }
 
+    //переводит дату в строку в заданном формате
     protected String formatDate(Date date){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return dateFormat.format(date);
+        if(date != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            return dateFormat.format(date);
+        }
+        else return "";
     }
 }

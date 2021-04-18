@@ -3,10 +3,11 @@ import java.util.HashMap;
 
 
 public class CustomerDao extends DAO<Customer>{
-    private HashMap<Integer, Customer> customers = new HashMap<>();
+    private HashMap<Integer, Customer> customers;
     private static final String INSERT_NEW =
             "insert into customers (firstname, lastname, patronymic, email, dateofbirth, phonenumber) values(?, ?, ?, ?, ?, ?)";
     private static final String FIND_ALL = "select * from customers";
+    private static final String FIND_ONE = "select * from customers where idcustomer = ?";
 
 
     public HashMap<Integer, Customer> findAll() {
@@ -16,13 +17,7 @@ public class CustomerDao extends DAO<Customer>{
             ResultSet resultSet = statement.executeQuery(FIND_ALL);
             while (resultSet.next()) {
                 Customer customer = new Customer();
-                customer.setID(resultSet.getInt("idcustomer"));
-                customer.setFirstName(resultSet.getString("firstname"));
-                customer.setLastName(resultSet.getString("lastname"));
-                customer.setPatronymic(resultSet.getString("patronymic"));
-                customer.setEmail(resultSet.getString("email"));
-                customer.setPhoneNumber(resultSet.getString("phonenumber"));
-                customer.setDateOfBirth(resultSet.getDate("dateofbirth"));
+                fillCustomer(customer, resultSet);
                 customers.put(customer.getID(), customer);
             }
 
@@ -62,8 +57,36 @@ public class CustomerDao extends DAO<Customer>{
         return true;
     }
 
+    @Override
+    public Customer get(int id) {
+        Customer customer = new Customer();
+        try {
+            PreparedStatement preparedStatement = DBManager.getConnection().prepareStatement(FIND_ONE);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            fillCustomer(customer, resultSet);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return customer;
+    }
+
     public HashMap<Integer, Customer> getHashMap(){
+        if (customers == null)
+            customers = findAll();
         return customers;
+    }
+
+    private void fillCustomer(Customer customer, ResultSet resultSet) throws SQLException {
+        customer.setID(resultSet.getInt("idcustomer"));
+        customer.setFirstName(resultSet.getString("firstname"));
+        customer.setLastName(resultSet.getString("lastname"));
+        customer.setPatronymic(resultSet.getString("patronymic"));
+        customer.setEmail(resultSet.getString("email"));
+        customer.setPhoneNumber(resultSet.getString("phonenumber"));
+        customer.setDateOfBirth(resultSet.getDate("dateofbirth"));
     }
 }
 

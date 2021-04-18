@@ -12,6 +12,12 @@ public abstract class Controller<T> {
 
     public abstract boolean add(T t);
 
+    public T get(int id){
+        return dao.get(id);
+    }
+
+
+
 
 
 }

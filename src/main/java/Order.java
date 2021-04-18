@@ -13,7 +13,7 @@ public class Order {
     private Date dateOfStartExecution;
     private Date dateOfEndExecution;
 
-    private String description;
+    private String description = "";
 
     public String getDescription() {
         return description;

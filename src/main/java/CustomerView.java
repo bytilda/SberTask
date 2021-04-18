@@ -20,14 +20,7 @@ public class CustomerView extends View<Customer>{
             case 1 -> {
                 HashMap<Integer, Customer> customers = controller.findAll();
                 for (Customer customer: customers.values()) {
-                    System.out.println("ID: " + customer.getID());
-                    System.out.println("Имя: " + customer.getFirstName());
-                    System.out.println("Фамилия: " + customer.getLastName());
-                    System.out.println("Отчество: " + customer.getPatronymic());
-                    System.out.println("E-mail: " + customer.getEmail());
-                    System.out.println("Номер телефона: " + customer.getPhoneNumber());
-                    System.out.println("Дата рождения: " + formatDate(customer.getDateOfBirth()));
-                    System.out.println();
+                    printInformationAboutCustomer(customer);
                 }
             }
 
@@ -62,7 +55,29 @@ public class CustomerView extends View<Customer>{
                     System.out.println("Не удалось добавить");
 
             }
+            case 5 -> {
+                System.out.println("Введите id покупателя:");
+                int id = Integer.parseInt(scanner.nextLine());
+                Customer customer = controller.get(id);
+                if(customer != null){
+                    printInformationAboutCustomer(customer);
+                }
+                else{
+                    System.out.println("Покупатель с указанным id не найден");
+                }
+            }
         }
+    }
+
+    private void printInformationAboutCustomer(Customer customer){
+        System.out.println("ID: " + customer.getID());
+        System.out.println("Имя: " + customer.getFirstName());
+        System.out.println("Фамилия: " + customer.getLastName());
+        System.out.println("Отчество: " + customer.getPatronymic());
+        System.out.println("E-mail: " + customer.getEmail());
+        System.out.println("Номер телефона: " + customer.getPhoneNumber());
+        System.out.println("Дата рождения: " + formatDate(customer.getDateOfBirth()));
+        System.out.println();
     }
 
 

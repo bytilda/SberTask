@@ -19,21 +19,12 @@ public class OrderView extends View<Order>{
         System.out.println("4. Создать новый заказ");
         System.out.println("5. Вывести один заказ");
         System.out.println("6. Назад");
-        int subOption  = Integer.parseInt(scanner.nextLine());
+        int subOption = Integer.parseInt(scanner.nextLine());
         switch (subOption){
             case 1 -> {
                 HashMap<Integer, Order> orders = controller.findAll();
                 for ( Order order: orders.values()) {
-                    System.out.println("ID: " + order.getID());
-                    System.out.println("Номер: " + order.getOrderNumber());
-                    System.out.println("Дата оформления: " + formatDate(order.getOrderDate()));
-                    System.out.println("Дата начала исполнения: " + formatDate(order.getDateOfStartExecution()));
-                    System.out.println("Дата окончания исполнения: " + formatDate(order.getDateOfEndExecution()));
-                    System.out.println("Описание: " + order.getDescription());
-                    System.out.println("ID покуателя: " + order.getCustomerID());
-                    System.out.println("Имя и фамилия покупателя: " + order.getCustomer().getFirstName() + " " +
-                            order.getCustomer().getLastName());
-                    System.out.println();
+                    printInformationAboutOrder(order);
                 }
 
             }
@@ -77,7 +68,32 @@ public class OrderView extends View<Order>{
 
             }
 
+            case 5 ->{
+                System.out.println("Введите id заказа:");
+                int id = Integer.parseInt(scanner.nextLine());
+                Order order = controller.get(id);
+                if(order != null) {
+                    printInformationAboutOrder(order);
+                }
+                else{
+                    System.out.println("Не удалось найти заказ с указанным id");
+                }
+            }
+
         }
+    }
+
+    private void printInformationAboutOrder(Order order){
+        System.out.println("ID: " + order.getID());
+        System.out.println("Номер: " + order.getOrderNumber());
+        System.out.println("Дата оформления: " + formatDate(order.getOrderDate()));
+        System.out.println("Дата начала исполнения: " + formatDate(order.getDateOfStartExecution()));
+        System.out.println("Дата окончания исполнения: " + formatDate(order.getDateOfEndExecution()));
+        System.out.println("Описание: " + order.getDescription());
+        System.out.println("ID покуателя: " + order.getCustomerID());
+        System.out.println("Имя и фамилия покупателя: " + order.getCustomer().getFirstName() + " " +
+                order.getCustomer().getLastName());
+        System.out.println();
     }
 
 
