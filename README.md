@@ -3,9 +3,10 @@
 Использованная БД: MySQL
 
 #Таблицы БД:
-Покупатели:
+ Покупатели:
 ![alt text](screenshots/dbcustomers.jpg "Устройство таблицы customers в БД")
-Заказы:
+---
+ Заказы:
 ![alt text](screenshots/dborders.jpg "Устройство таблицы orders в БД")
 
 #Небольшие пояснения
@@ -15,4 +16,4 @@
   
  #Примеры работы программы
  ![alt text](screenshots/example1.jpg "Примеры работы программы")
- ![alt text](screenshots/example12.jpg "Примеры работы программы")
+ ![alt text](screenshots/example2.jpg "Примеры работы программы")
