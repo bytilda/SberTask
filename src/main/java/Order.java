@@ -13,6 +13,7 @@ public class Order {
     private Date dateOfStartExecution;
     private Date dateOfEndExecution;
 
+    //TODO:решить проблемку с выводом описания
     private String description = "";
 
     public String getDescription() {
