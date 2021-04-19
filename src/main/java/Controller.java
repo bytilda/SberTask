@@ -16,6 +16,11 @@ public abstract class Controller<T> {
         return dao.get(id);
     }
 
+    public boolean delete(int id){
+        return dao.delete(id);
+    }
+
+    public boolean update(T t) {return dao.update(t);}
 
 
 

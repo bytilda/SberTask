@@ -1,10 +1,8 @@
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
 
 
 public class Customer {
-
     private Integer ID;
     private String firstName;
     private String lastName;
@@ -13,7 +11,16 @@ public class Customer {
     private String email;
     private String phoneNumber;
 
-    private ArrayList<Order> orders;
+    //TODO: при удалении заказа удалять из списка
+    private ArrayList<Order> orders = new ArrayList<>();
+
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
+    }
 
     public String getEmail() {
         return email;

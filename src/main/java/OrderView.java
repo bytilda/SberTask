@@ -28,43 +28,38 @@ public class OrderView extends View<Order>{
                 }
 
             }
+            //TODO: заменить на изменение только одного поля
             case 2 -> {
-
+                System.out.println("Введите id заказа для изменения информации:");
+                int id = Integer.parseInt(scanner.nextLine());
+                Order order = controller.get(id);
+                if(fillInformation(order)){
+                    if(controller.update(order))
+                        System.out.println("Данные успешно обновлены.");
+                    else
+                        System.out.println("Не удалось обновить данные");
+                }
+                else System.out.println("Ошибка ввода. Отмена изменений.");
+            }
+            case 3->{
+                System.out.println("Введите id заказа для удаления информации:");
+                int id = Integer.parseInt(scanner.nextLine());
+                if(controller.delete(id))
+                    System.out.println("Удаление прошло успешно.");
+                else
+                    System.out.println("Ошибка. Не удалось удалить информацию о заказе с указанным id.");
             }
             case 4 -> {
                 Order order = new Order();
-                System.out.println("Введите номер заказа:");
-                order.setOrderNumber(Integer.valueOf(scanner.nextLine()));
-                System.out.println("Введите дату заказа dd/MM/yyyy:");
-                Date date = readDate();
-                if(date != null){
-                    order.setOrderDate(date);
-                }
-                else break;
-                System.out.println("Введите дату начала исполнения заказа dd/MM/yyyy:");
-                date = readDate();
-                if(date != null){
-                    order.setDateOfStartExecution(date);
-                }
-                else break;
-                System.out.println("Введите дату конца исполнения заказа dd/MM/yyyy:");
-                date = readDate();
-                if(date != null){
-                    order.setDateOfEndExecution(date);
-                }
-                else break;
 
-                System.out.println("Введите id покупателя:");
-                order.setCustomerID(Integer.parseInt(scanner.nextLine()));
-
-                System.out.println("Введите описание:");
-                order.setDescription(scanner.nextLine());
+                //если заполнение информации не прошло успешно, выход
+                if(!fillInformation(order))
+                    break;
 
                 if(controller.add(order))
                     System.out.println("Добавление прошло успешно");
                 else
                     System.out.println("Не удалось добавить");
-
 
             }
 
@@ -96,5 +91,34 @@ public class OrderView extends View<Order>{
         System.out.println();
     }
 
+    private boolean fillInformation(Order order){
+        System.out.println("Введите номер заказа:");
+        order.setOrderNumber(Integer.valueOf(scanner.nextLine()));
+        System.out.println("Введите дату заказа dd/MM/yyyy:");
+        Date date = readDate();
+        if(date != null){
+            order.setOrderDate(date);
+        }
+        else return false;
+        System.out.println("Введите дату начала исполнения заказа dd/MM/yyyy:");
+        date = readDate();
+        if(date != null){
+            order.setDateOfStartExecution(date);
+        }
+        else return false;
+        System.out.println("Введите дату конца исполнения заказа dd/MM/yyyy:");
+        date = readDate();
+        if(date != null){
+            order.setDateOfEndExecution(date);
+        }
+        else return false;
+
+        System.out.println("Введите id покупателя:");
+        order.setCustomerID(Integer.parseInt(scanner.nextLine()));
+
+        System.out.println("Введите описание:");
+        order.setDescription(scanner.nextLine());
+        return true;
+    }
 
 }

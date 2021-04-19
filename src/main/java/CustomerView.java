@@ -23,32 +23,35 @@ public class CustomerView extends View<Customer>{
                     printInformationAboutCustomer(customer);
                 }
             }
+            //TODO: заменить на изменение только одного поля
+            case 2->{
+                System.out.println("Введите id покупателя для изменения информации:");
+                int id = Integer.parseInt(scanner.nextLine());
+                Customer customer = controller.get(id);
+                if(fillInformation(customer)){
+                    if(controller.update(customer))
+                        System.out.println("Данные успешно обновлены.");
+                    else
+                        System.out.println("Не удалось обновить данные");
+                }
+                else System.out.println("Ошибка ввода. Отмена изменений.");
+
+            }
+
+
+            case 3->{
+                System.out.println("Введите id покупателя для удаления информации:");
+                int id = Integer.parseInt(scanner.nextLine());
+                if(controller.delete(id))
+                    System.out.println("Удаление прошло успешно.");
+                else
+                    System.out.println("Ошибка. Не удалось удалить информацию о покупателе с указанным id.");
+            }
 
             case 4->{
                 Customer customer = new Customer();
-                System.out.println("Введите имя:");
-                customer.setFirstName(scanner.nextLine());
-
-                System.out.println("Введите фамилию:");
-                customer.setLastName(scanner.nextLine());
-
-                System.out.println("Введите отчество при наличии, иначе Enter:");
-                customer.setPatronymic(scanner.nextLine());
-
-                System.out.println("Введите номер при наличии, иначе Enter:");
-                customer.setPhoneNumber(scanner.nextLine());
-
-                System.out.println("Введите email: ");
-                customer.setEmail(scanner.nextLine());
-
-                System.out.println("Введите дату рождения: ");
-                Date date = readDate();
-                if(date != null)
-                    customer.setDateOfBirth(date);
-                else{
-                    System.out.println("Дата была введена неверно");
+                if(!fillInformation(customer))
                     break;
-                }
                 if(controller.add(customer))
                     System.out.println("Добавление прошло успешно");
                 else
@@ -77,7 +80,38 @@ public class CustomerView extends View<Customer>{
         System.out.println("E-mail: " + customer.getEmail());
         System.out.println("Номер телефона: " + customer.getPhoneNumber());
         System.out.println("Дата рождения: " + formatDate(customer.getDateOfBirth()));
-        System.out.println();
+        System.out.print("ID заказов: ");
+        for (Order order: customer.getOrders()) {
+            System.out.print(order.getOrderNumber() + " ");
+        }
+        System.out.println("\n");
+    }
+
+    private boolean fillInformation(Customer customer){
+        System.out.println("Введите имя:");
+        customer.setFirstName(scanner.nextLine());
+
+        System.out.println("Введите фамилию:");
+        customer.setLastName(scanner.nextLine());
+
+        System.out.println("Введите отчество при наличии, иначе Enter:");
+        customer.setPatronymic(scanner.nextLine());
+
+        System.out.println("Введите номер при наличии, иначе Enter:");
+        customer.setPhoneNumber(scanner.nextLine());
+
+        System.out.println("Введите email: ");
+        customer.setEmail(scanner.nextLine());
+
+        System.out.println("Введите дату рождения: ");
+        Date date = readDate();
+        if(date != null)
+            customer.setDateOfBirth(date);
+        else{
+            System.out.println("Дата была введена неверно");
+            return false;
+        }
+        return true;
     }
 
 
